@@ -5,8 +5,9 @@ import datetime
 import re
 
 
-SRC_GLOB    = "C:/Users/cross/Downloads/ecocheat/sources/*.xls"      
-DB_PATH     = "C:/Users/cross/Downloads/ecocheat/database/Hyper_DB.xlsx"  
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_GLOB = os.path.join(BASE_DIR, "sources", "*.xls")
+DB_PATH = os.path.join(BASE_DIR, "database", "databasecopy.xlsx")
 DB_SHEET    = "Sheet1"                  
 SRC_SHEET   = 0 
 
@@ -175,6 +176,9 @@ else:
 
 # elimina dupes
 combined = pd.concat([db_df, new_rows], ignore_index=True)
+
+# ci sono due colonne E/E', se rimuovi questa riga non funziona
+# combined.loc[:, "E/E'"] = combined["E/E'"]
 
 #replace sheet
 with pd.ExcelWriter(DB_PATH, engine="openpyxl", mode="w") as writer:

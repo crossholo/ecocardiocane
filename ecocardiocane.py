@@ -176,9 +176,6 @@ else:
 # elimina dupes
 combined = pd.concat([db_df, new_rows], ignore_index=True)
 
-# ci sono due colonne E/E', se rimuovi questa riga non funziona
-combined.loc[:, "E/E'"] = combined["E/E'"]
-
 #replace sheet
 with pd.ExcelWriter(DB_PATH, engine="openpyxl", mode="w") as writer:
     combined.to_excel(writer, sheet_name=DB_SHEET, index=False)
